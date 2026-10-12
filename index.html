@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Night Cafe Dating</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="phone-frame">
+    
+    <section id="screen-start" class="screen active bg-cafe-main">
+        <div class="logo-container">
+            <!-- Сюда можно вставить вашу картинку логотипа вместо CSS-круга -->
+            <div class="logo-circle">
+                <div class="logo-text">Night<br>Cafe</div>
+            </div>
+            <div class="loading-text">Загрузка...</div>
+        </div>
+    </section>
+
+    <!-- ЭКРАН 2: Регистрация -->
+    <section id="screen-register" class="screen bg-register">
+        <div class="register-form">
+            <div class="cat-moon-container">
+                <!-- Картинка кота на луне -->
+                <div class="cat-moon-placeholder">🐈‍⬛</div>
+            </div>
+            
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" class="input-field" placeholder="your@email.com">
+            </div>
+            
+            <div class="row-inputs">
+                <div class="input-group">
+                    <label>Пароль</label>
+                    <input type="password" class="input-field">
+                </div>
+                <div class="input-group">
+                    <label>Дата рождения</label>
+                    <input type="date" class="input-field date-input">
+                </div>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="terms">
+                <label for="terms">Условия пользования</label>
+            </div>
+
+            <button class="btn-main" onclick="goTo('screen-sound')">Сохранить</button>
+        </div>
+    </section>
+
+    <!-- ЭКРАН 3: Выбор звука -->
+    <section id="screen-sound" class="screen bg-sound">
+        <!-- Верхнее меню -->
+        <nav class="top-nav">
+            <div class="nav-icon" onclick="goTo('screen-register')">👤</div>
+            <div class="nav-icon" onclick="goTo('screen-menu')">🍴</div>
+            <div class="nav-icon" onclick="goTo('screen-chat-list')">💬</div>
+        </nav>
+
+        <div class="sound-selection">
+            <div class="vinyl-container">
+                <!-- Картинка виниловой пластинки -->
+                <div class="vinyl-placeholder">💿</div>
+            </div>
+            <h2 class="title-sound">Какой звук ближе к душе?</h2>
+            
+            <div class="sound-list">
+                <div class="sound-item" onclick="selectSound(this, 'Звуки машин')">
+                    <div class="sound-info"><div class="sound-name">Звуки машин</div></div>
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="sound-item" onclick="selectSound(this, 'Звук дождя')">
+                    <div class="sound-info"><div class="sound-name">Звук дождя</div></div>
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="sound-item" onclick="selectSound(this, 'Звук поезда')">
+                    <div class="sound-info"><div class="sound-name">Звук поезда</div></div>
+                    <div class="play-btn">▶</div>
+                </div>
+                 <div class="sound-item" onclick="selectSound(this, 'Дальняя сирена')">
+                    <div class="sound-info"><div class="sound-name">Дальняя сирена</div></div>
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="sound-item" onclick="selectSound(this, 'Сверчки')">
+                    <div class="sound-info"><div class="sound-name">Сверчки</div></div>
+                    <div class="play-btn">▶</div>
+                </div>
+            </div>
+            
+            <button class="btn-main" onclick="checkSoundSelection()">Далее</button>
+        </div>
+    </section>
+
+    <!-- ЭКРАН 4: Меню -->
+    <section id="screen-menu" class="screen bg-menu">
+        <nav class="top-nav">
+            <div class="nav-icon" onclick="goTo('screen-sound')">🎵</div>
+            <div class="nav-icon" onclick="goTo('screen-chat-list')">💬</div>
+            <div class="nav-icon" onclick="goTo('screen-profile')">👤</div>
+        </nav>
+
+        <div class="menu-list">
+            <h2 class="title-menu">Меню</h2>
+            
+            <div class="menu-item" onclick="selectMenu(this, 'Бутербродик')">
+                <div class="menu-icon">🥪</div>
+                <div class="menu-text">Бутербродик</div>
+            </div>
+            <div class="menu-item" onclick="selectMenu(this, 'Вермишелька')">
+                <div class="menu-icon">🍜</div>
+                <div class="menu-text">Вермишелька</div>
+            </div>
+            <div class="menu-item" onclick="selectMenu(this, 'Блинчики')">
+                <div class="menu-icon">🥞</div>
+                <div class="menu-text">Блинчики</div>
+            </div>
+            <div class="menu-item" onclick="selectMenu(this, 'Кофеёк')">
+                <div class="menu-icon">☕</div>
+                <div class="menu-text">Кофеёк</div>
+            </div>
+
+            <button class="btn-order" onclick="startSearch()">Заказать</button>
+        </div>
+    </section>
+
+    <!-- ЭКРАН 5: Поиск -->
+    <section id="screen-search" class="screen bg-cafe-main">
+        <div class="logo-container">
+            <div class="logo-circle">
+                <div class="logo-text">Night<br>Cafe</div>
+            </div>
+            <div class="loading-text">Идет поиск...</div>
+            <p class="search-status" id="search-status"></p>
+        </div>
+    </section>
+
+    <!-- ЭКРАН 6: Чат -->
+    <section id="screen-chat" class="screen bg-chat">
+        <nav class="top-nav">
+            <div class="nav-icon" onclick="goTo('screen-chat-list')">←</div>
+            <div class="nav-icon chat-header-title">Собеседник</div>
+            <div class="nav-icon" onclick="goTo('screen-profile')">👤</div>
+        </nav>
+
+        <div class="chat-container" id="chat-messages">
+            <!-- Сообщения добавляются через JS -->
+        </div>
+
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" id="msg-input" placeholder="Введите текст...">
+            <button class="send-btn" onclick="sendMessage()">Отправить</button>
+        </div>
+    </section>
+
+    <!-- ЭКРАН 7: Список чатов -->
+    <section id="screen-chat-list" class="screen bg-chat-list">
+        <nav class="top-nav">
+            <div class="nav-icon" onclick="goTo('screen-menu')">🍴</div>
+            <div class="nav-icon" onclick="goTo('screen-sound')">🎵</div>
+            <div class="nav-icon" onclick="goTo('screen-profile')">👤</div>
+        </nav>
+
+        <div class="chat-list">
+            <div class="chat-preview" onclick="openChat('Привет)')">
+                <div class="avatar">👤</div>
+                <div class="chat-info">
+                    <div class="chat-name">Привет)</div>
+                    <div class="chat-last-msg">Я тебя вижу...</div>
+                </div>
+            </div>
+            <div class="chat-preview" onclick="openChat('Я тебя вижу')">
+                <div class="avatar" style="background: #001f3f;">👤</div>
+                <div class="chat-info">
+                    <div class="chat-name">Я тебя вижу</div>
+                    <div class="chat-last-msg">...</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ЭКРАН 8: Профиль -->
+    <section id="screen-profile" class="screen bg-register">
+        <nav class="top-nav">
+            <div class="nav-icon" onclick="goTo('screen-sound')">🎵</div>
+            <div class="nav-icon" onclick="goTo('screen-menu')">🍴</div>
+            <div class="nav-icon" onclick="goTo('screen-chat-list')">💬</div>
+        </nav>
+
+        <div class="profile-container">
+            <div class="profile-avatar-wrapper">
+                <div class="profile-avatar" id="profile-avatar-display">🐈‍⬛</div>
+                <div class="edit-avatar-btn" onclick="document.getElementById('avatar-upload').click()">✎</div>
+                <input type="file" id="avatar-upload" accept="image/*" style="display: none;" onchange="changeAvatar(event)">
+            </div>
+            
+            <div class="profile-info">
+                <div class="profile-info-item">Ваш звук: <span id="profile-sound">Не выбран</span></div>
+                <div class="profile-info-item">Ваше блюдо: <span id="profile-food">Не выбрано</span></div>
+            </div>
+
+            <button class="btn-main" onclick="saveProfile()">Сохранить</button>
+            <button class="btn-main btn-logout" onclick="goTo('screen-register')">Выйти</button>
+        </div>
+    </section>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
